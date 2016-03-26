@@ -89,13 +89,14 @@ window.SignaledConnection = function (fromName, toName) {
       div.parentNode.removeChild(div);
 
     }
-    
+    self.pc.close();
+    self.pc = null;
   }
 
   self.start = function () {
     console.log ("signaledConnection(" + self.toName + ").start");
     if (self.pc) {
-      self.close();
+      console.log("STARTED with old PC!!");
       //self.pc.close();
     }
     else 
@@ -264,7 +265,8 @@ peersReceiver = function (message) {
       if (user.time != au.time) {
         console.log("REGISTERING TIME DIFF!")
         user.signaledChannel.close();
-        user.signaledChannel.pc.close();
+        user.signaledChannel = null;
+        //user.signaledChannel.pc.close();
         user.signaledChannel = new SignaledConnection(gup("workerId"), mess.user);
       
         //user.signaledChannel.start();
@@ -320,8 +322,9 @@ if (gup("role") == "user") {
             //if (curr) { 
               
               curr.signaledChannel.close();
-              user.signaledChannel.pc.close();
-              user.signaledChannel = new SignaledConnection(gup("workerId"), newer.workerId);
+              curr.signaledChannel = null;
+              //user.signaledChannel.pc.close();
+              curr.signaledChannel = new SignaledConnection(gup("workerId"), newer.workerId);
       
               
               curr.time = fields.time;
