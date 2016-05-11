@@ -1,0 +1,9 @@
+The webpage shows two buttons (start and stop) for recording. When the user clicks on stop recording button, the recording stops and the data is saved on the server (./uploads directory). The 'workerid' is used as the file name of the audio file. This file path along with workerid and other parameters, is stored in the Mongodb database.
+
+I have attached the code in a zip file.
+
+Step to run:
+1) Open terminal
+2) Go to the directory (recording)
+3) sudo mrt
+4) Open the url and write "http://localhost:3000/?workerId=underbossman&session=les&role=user"
