@@ -1,9 +1,13 @@
 The webpage shows two buttons (start and stop) for recording. When the user clicks on stop recording button, the recording stops and the data is saved on the server (./uploads directory). The 'workerid' is used as the file name of the audio file. This file path along with workerid and other parameters, is stored in the Mongodb database.
 
-I have attached the code in a zip file.
-
-Step to run:
+Step to run (after cloning this directory):
 1) Open terminal
-2) Go to the directory (recording)
-3) sudo mrt
+2) Go to this directory (recording)
+3) Type "sudo mrt"
 4) Open the url and write "http://localhost:3000/?workerId=underbossman&session=les&role=user"
+
+Once the user opens the URL in the browser, he/she can initiate the recording. When the recording is completed i.e. when the user clicks on the 'stop recording' button, the recording is saved on the server's side. The user can find that recorded file in the uploads directory under the recording directory.
+
+Note: HomanWebRTC application uses streams for real time communication. In homanWebRTC application, there is a connection between the two clients using one stream i.e. client (client A) to client (client B) connection. So whenever client (client A) is speaking (audio), then that client (client A) is not actually sending the data to the receiver (client B) but the receiver (client B) is listening from that stream. So a pipe (stream) is created between both the clients (client A and B) on each end. There is no way to read the data from that one stream using RTC peer connection object, which maintains that stream. So basically, meteor-streams are mainly used for broadcasting or audio/video conferencing.
+
+So instead of using meteor-streams, RecordRTC framework is used to record the audio. It takes into consideration all the three parameters from the URL and stores the mapping in the mongodb database.
